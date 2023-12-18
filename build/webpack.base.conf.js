@@ -1,10 +1,6 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const pkg = require('../package.json');
-const { config, Host } = require('./config');
-const { resolve, subDir } = require('./utils');
-
-const isProd = process.env.NODE_ENV === 'production';
+const { resolve, isProd } = require('./utils');
 
 const baseConfig = {
   target: 'web',
@@ -48,9 +44,6 @@ const baseConfig = {
       'process.env': {
         BUILD_ENV: JSON.stringify(process.env.BUILD_ENV),
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        API_PATH: JSON.stringify(config[process.env.BUILD_ENV].API_PATH),
-        SUB_DIR: JSON.stringify(config[process.env.BUILD_ENV].SUB_DIR),
-        PUBLIC_PATH: JSON.stringify(config[process.env.BUILD_ENV].PUBLIC_PATH),
       },
     }),
   ],
