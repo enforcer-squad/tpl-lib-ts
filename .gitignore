@@ -5,6 +5,8 @@ docs_dist
 compiled
 bin
 
+.dumi/tmp
+.dumi/tmp-production
 .eslintcache
 .pnpm-debug.log
 .nyc_output
