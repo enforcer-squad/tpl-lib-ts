@@ -1,35 +1,60 @@
-// const { HotModuleReplacementPlugin } = require('webpack');
-// const { merge } = require('webpack-merge');
-// const { devServer } = require('./config');
-// const { getEntries } = require('./tools');
-// const { resolve } = require('./tools');
-// const baseConfig = require('./webpack.base.conf');
+const webpack = require('webpack');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { merge } = require('webpack-merge');
+const { resolve, getCssLoaders, getEntries } = require('./utils');
+const baseConfig = require('./webpack.base.conf');
 
-// const { entries, htmlPlugins } = getEntries();
+const { entries, htmlPlugins } = getEntries();
 
-// const devConfig = {
-//   entry: {
-//     ...entries,
-//   },
-//   <% if(esLint){ -%>
-//   module: {
-//     rules: [
-//       {
-//         test: /\.js$/,
-//         use: {
-//           loader: 'eslint-loader',
-//           options: {
-//             formatter: require('eslint-friendly-formatter'),
-//           },
-//         },
-//         include: [resolve('src')],
-//         enforce: 'pre',
-//       },
-//     ],
-//   },
-//   <%} -%>
-//   plugins: [new HotModuleReplacementPlugin(), ...htmlPlugins],
-//   devServer: devServer,
-// };
+const devConfig = merge(baseConfig, {
+  experiments: {
+    lazyCompilation: true,
+  },
+  entry: {
+    ...entries,
+  },
+  devServer: {
+    port: 2345,
+    hot: true,
+    host: '0.0.0.0',
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    proxy: {
+      '/api': {
+        target: 'http://10.0.70.51:8000',
+        changeOrigin: true,
+        // pathRewrite: {
+        //   '^/xxx': '/',
+        // },
+      },
+    },
+  },
+  module: {
+    rules: getCssLoaders(),
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
+    new ESLintPlugin(),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: resolve('src/public'),
+    //       to: resolve(`dist/${config[process.env.BUILD_ENV].SUB_DIR}`),
+    //     },
+    //   ],
+    // }),
+    ...htmlPlugins,
+  ],
+});
 
-// module.exports = merge(baseConfig, devConfig);
+module.exports = devConfig;

@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const BundleDeclarationsWebpackPlugin = require('bundle-declarations-webpack-plugin').default;
 const pkg = require('../package.json');
 const { resolve, isProd } = require('./utils');
 
@@ -7,7 +8,7 @@ const baseConfig = {
   mode: isProd ? 'production' : 'development',
   devtool: isProd ? false : 'source-map',
   entry: {
-    main: [resolve('src/index.ts')],
+    index: [resolve('src/index.ts')],
   },
   output: {
     filename: '[name].js',
@@ -45,6 +46,10 @@ const baseConfig = {
         BUILD_ENV: JSON.stringify(process.env.BUILD_ENV),
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
+    }),
+    new BundleDeclarationsWebpackPlugin({
+      entry: './src/index.ts',
+      outFile: 'index.d.ts',
     }),
   ],
 };

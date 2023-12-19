@@ -8,9 +8,11 @@
     "prepare": "husky install",
     "start": "cross-env NODE_ENV=development BUILD_ENV=local webpack-dev-server --config build/webpack.dev.conf.js",
     "build": "cross-env NODE_ENV=production BUILD_ENV=prod node build/build.js",
-    "release": "standard-version -t $(date +release-%Y%m%d-v)",
-    "changeset": "changeset",
-    "version": "changeset version"
+    "version:major": "npx standard-version --release-as major",
+    "version:minor": "npx standard-version --release-as minor",
+    "version:patch": "npx standard-version --release-as patch",
+    "release": "pnpm build && pnpm release:only",
+    "release:only": "npm publish --registry=https://registry.npmjs.com/"
   },
   "keywords": [],
   "author": "",
@@ -40,7 +42,6 @@
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
     "@babel/runtime-corejs3": "^7.23.6",
-    "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
