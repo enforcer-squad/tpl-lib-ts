@@ -1,6 +1,6 @@
 {
   "name": "tpl-lib-ts",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "library typescript template",
   "main": "dist/index.js",
   "scripts": {
