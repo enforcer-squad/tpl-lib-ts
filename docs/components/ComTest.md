@@ -4,7 +4,7 @@ group:
   order: 1
 ---
 
-## 比例尺
+## 测试
 
 ```tsx
 /**
@@ -25,8 +25,6 @@ const App: React.FC = () => {
 
 export default App;
 ```
-
-## 比例尺
 
 ## API
 
