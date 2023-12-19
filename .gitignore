@@ -1,8 +1,8 @@
 node_modules
 coverage
 dist
+docs_dist
 compiled
-docs
 bin
 
 .eslintcache
