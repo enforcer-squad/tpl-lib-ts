@@ -87,7 +87,7 @@ const getCssLoaders = () => {
 };
 
 const getEntries = () => {
-  let indexs = globSync('demos/*/index.js');
+  let indexs = globSync('demos/*/index.ts');
   const htmlPlugins = [
     new HtmlWebpackPlugin({
       template: resolve('demos/index.html'),
