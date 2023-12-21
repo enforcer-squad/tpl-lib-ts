@@ -224,6 +224,9 @@ devDependencies:
   webpack-dev-server:
     specifier: ^4.15.1
     version: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+  webpack-merge:
+    specifier: ^5.10.0
+    version: 5.10.0
   webpack-node-externals:
     specifier: ^3.0.0
     version: 3.0.0
